@@ -1,14 +1,13 @@
 //dark mode, localstorage
 
-
 import { useState, useEffect } from "react";
+
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
   const [filter, setFilter] = useState("all");
   const [darkMode, setDarkMode] = useState(true);
 
-  // Load from localStorage
   useEffect(() => {
     const savedTasks = localStorage.getItem("tasks");
     const theme = localStorage.getItem("theme");
@@ -17,12 +16,10 @@ export default function App() {
     if (theme) setDarkMode(theme === "dark");
   }, []);
 
-  // Save tasks
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  // Save theme
   useEffect(() => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
@@ -56,19 +53,16 @@ export default function App() {
     setTasks(tasks.filter((t) => !t.completed));
   };
 
-  // Filtering
   const filteredTasks = tasks.filter((t) => {
     if (filter === "completed") return t.completed;
     if (filter === "pending") return !t.completed;
     return true;
   });
 
-  // Stats
   const total = tasks.length;
   const completed = tasks.filter((t) => t.completed).length;
   const pending = total - completed;
 
-  // Theme styles
   const bg = darkMode
     ? "linear-gradient(135deg, #1e293b, #0f172a)"
     : "linear-gradient(135deg, #e2e8f0, #ffffff)";
@@ -82,9 +76,8 @@ export default function App() {
   return (
     <div style={{ ...styles.page, background: bg }}>
       <div style={{ ...styles.container, background: cardBg, color: textColor }}>
-        <h1 style={styles.heading}>📝 Task Manager</h1>
+        <h1 style={styles.heading}>Task Manager</h1>
 
-        {/* THEME TOGGLE */}
         <button
           onClick={() => setDarkMode(!darkMode)}
           style={{
@@ -96,7 +89,6 @@ export default function App() {
           {darkMode ? "Light Mode" : "Dark Mode"}
         </button>
 
-        {/* INPUT */}
         <div style={styles.inputRow}>
           <input
             value={input}
@@ -109,21 +101,24 @@ export default function App() {
           </button>
         </div>
 
-        {/* FILTER BUTTONS */}
         <div style={styles.filters}>
-          <button style = {styles.clearBtn} onClick={() => setFilter("all")}>All</button>
-          <button style = {styles.clearBtn} onClick={() => setFilter("pending")}>Pending</button>
-          <button style = {styles.clearBtn} onClick={() => setFilter("completed")}>Completed</button>
+          <button style={styles.clearBtn} onClick={() => setFilter("all")}>
+            All
+          </button>
+          <button style={styles.clearBtn} onClick={() => setFilter("pending")}>
+            Pending
+          </button>
+          <button style={styles.clearBtn} onClick={() => setFilter("completed")}>
+            Completed
+          </button>
         </div>
 
-        {/* STATS */}
         <div style={styles.stats}>
           <span>Total: {total}</span>
           <span>Completed: {completed}</span>
           <span>Pending: {pending}</span>
         </div>
 
-        {/* TASK LIST */}
         <div style={styles.list}>
           {filteredTasks.length === 0 ? (
             <p>No tasks found</p>
@@ -149,13 +144,13 @@ export default function App() {
                     style={styles.completeBtn}
                     onClick={() => toggleTask(task.id)}
                   >
-                    ✔
+                    Complete
                   </button>
                   <button
                     style={styles.deleteBtn}
                     onClick={() => deleteTask(task.id)}
                   >
-                    ✖
+                    Delete
                   </button>
                 </div>
               </div>
@@ -163,7 +158,6 @@ export default function App() {
           )}
         </div>
 
-        {/* CLEAR BUTTON */}
         <button style={styles.clearBtn} onClick={clearCompleted}>
           Clear Completed
         </button>
@@ -172,7 +166,6 @@ export default function App() {
   );
 }
 
-/* STYLES */
 const styles = {
   page: {
     minHeight: "100vh",
