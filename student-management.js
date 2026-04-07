@@ -13,7 +13,6 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [darkMode, setDarkMode] = useState(true);
 
-  // Load data
   useEffect(() => {
     const data = localStorage.getItem("students");
     const theme = localStorage.getItem("theme");
@@ -22,7 +21,6 @@ export default function App() {
     if (theme) setDarkMode(theme === "dark");
   }, []);
 
-  // Save data
   useEffect(() => {
     localStorage.setItem("students", JSON.stringify(students));
   }, [students]);
@@ -60,7 +58,6 @@ export default function App() {
     s.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Theme styles
   const bg = darkMode
     ? "linear-gradient(135deg, #1e293b, #0f172a)"
     : "linear-gradient(135deg, #e2e8f0, #ffffff)";
@@ -74,9 +71,8 @@ export default function App() {
   return (
     <div style={{ ...styles.page, background: bg }}>
       <div style={{ ...styles.container, background: cardBg, color: textColor }}>
-        <h1 style={styles.heading}>🎓 Student Management</h1>
+        <h1 style={styles.heading}>Student Management</h1>
 
-        {/* THEME TOGGLE */}
         <button
           onClick={() => setDarkMode(!darkMode)}
           style={{
@@ -88,7 +84,6 @@ export default function App() {
           {darkMode ? "Light Mode" : "Dark Mode"}
         </button>
 
-        {/* SEARCH */}
         <input
           placeholder="Search by name..."
           value={search}
@@ -96,7 +91,6 @@ export default function App() {
           style={styles.input}
         />
 
-        {/* FORM */}
         <form onSubmit={handleSubmit} style={styles.form}>
           <input
             placeholder="Name"
@@ -128,7 +122,6 @@ export default function App() {
           </button>
         </form>
 
-        {/* LIST */}
         <div style={styles.list}>
           {filteredStudents.length === 0 ? (
             <p>No students found</p>
@@ -164,7 +157,6 @@ export default function App() {
   );
 }
 
-/* STYLES */
 const styles = {
   page: {
     minHeight: "100vh",
