@@ -1,7 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-/* CHILD COMPONENT */
 function MenuItem({ item }) {
   return (
     <div style={styles.card}>
@@ -12,7 +11,6 @@ function MenuItem({ item }) {
   );
 }
 
-/* PROP VALIDATION */
 MenuItem.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -33,7 +31,6 @@ export default function App() {
     { id: 5, name: "Fried Rice", price: 180, category: "Main Course" },
   ];
 
-  // FILTER + SEARCH
   const filteredMenu = menu.filter((item) => {
     const matchSearch = item.name
       .toLowerCase()
@@ -48,9 +45,8 @@ export default function App() {
   return (
     <div style={styles.page}>
       <div style={styles.container}>
-        <h1 style={styles.heading}>🍽 Restaurant Menu</h1>
+        <h1 style={styles.heading}>Restaurant Menu</h1>
 
-        {/* SEARCH */}
         <input
           placeholder="Search food..."
           value={search}
@@ -58,7 +54,6 @@ export default function App() {
           style={styles.input}
         />
 
-        {/* FILTER */}
         <div style={styles.filters}>
           <button onClick={() => setFilter("all")}>All</button>
           <button onClick={() => setFilter("Fast Food")}>
@@ -72,7 +67,6 @@ export default function App() {
           </button>
         </div>
 
-        {/* MENU LIST */}
         <div style={styles.list}>
           {filteredMenu.length === 0 ? (
             <p>No items found</p>
@@ -87,7 +81,6 @@ export default function App() {
   );
 }
 
-/* STYLES */
 const styles = {
   page: {
     minHeight: "100vh",
